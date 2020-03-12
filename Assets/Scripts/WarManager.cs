@@ -21,10 +21,10 @@ public class WarManager : Singleton<WarManager>
     private Dictionary<int, Player> _ourPlayerDic = new Dictionary<int, Player>();
     public Dictionary<int, Player> OurPlayerDic { get { return this._ourPlayerDic; } }
 
-    private StanceBase _theirStance;
+    private StanceBase _theirStance = new NormalStance();
     public StanceBase TheirStance { get { return this._theirStance; } set { _theirStance = value; } }
 
-    private StanceBase _ourStance;
+    private StanceBase _ourStance = new NormalStance();
     public StanceBase OurStance { get { return this._ourStance; } set { _ourStance = value; } }
 
     private int _levelGroup = 69;
