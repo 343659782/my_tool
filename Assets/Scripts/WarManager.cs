@@ -66,7 +66,6 @@ public class WarManager : Singleton<WarManager>
         this._theirPlayerParent = new GameObject("TheirPlayerParent");
 
         this._petPrefab = Resources.Load<GameObject>("Prefabs/PetPrefab");
-
     }
 
     public void StartGame()
@@ -85,6 +84,7 @@ public class WarManager : Singleton<WarManager>
                 GameObject obj = GameObject.Instantiate(this._cellPrefab);
                 obj.transform.parent = this._gridParent.transform;
                 obj.transform.localPosition = DataUtils.GetPosByRank(i, j);
+                obj.tag = "Ground";
             }
         }
     }
@@ -102,6 +102,7 @@ public class WarManager : Singleton<WarManager>
                 GameObject obj = GameObject.Instantiate(this._playerPrefab);
                 obj.transform.parent = this._ourPlayerParent.transform;
                 obj.transform.localPosition = DataUtils.GetPosByRank(ranks[i].x, ranks[i].y);
+                obj.tag = "Player";
                 Player player = obj.AddComponent<Player>();
                 player.FullData(i + 1, Camp.Our);
                 this._ourPlayerDic.Add(player.Index, player);
@@ -112,6 +113,7 @@ public class WarManager : Singleton<WarManager>
                 GameObject obj = GameObject.Instantiate(this._petPrefab);
                 obj.transform.parent = this._ourPlayerParent.transform;
                 obj.transform.localPosition = DataUtils.GetPosByRank(ConfigData.PetRanks[i].x, ConfigData.PetRanks[i].y);
+                obj.tag = "Pet";
                 this._ourPlayerDic[i + 1].SetPet(obj);
             }
         }

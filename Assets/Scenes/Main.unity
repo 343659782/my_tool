@@ -364,6 +364,16 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 3214588776274412536, guid: 225020a09dda3854eb72ab2b7779ae3b,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -137.90002
+      objectReference: {fileID: 0}
+    - target: {fileID: 3214588776274412536, guid: 225020a09dda3854eb72ab2b7779ae3b,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -25.400024
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 225020a09dda3854eb72ab2b7779ae3b, type: 3}
 --- !u!224 &1562268092 stripped
@@ -518,7 +528,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1024, y: 768}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -914,11 +924,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: InitPanel
-      objectReference: {fileID: 0}
-    - target: {fileID: 2216816229342888235, guid: eed872c34cf36a94a91c6179de15e5ac,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8277146682998303687, guid: eed872c34cf36a94a91c6179de15e5ac,
         type: 3}

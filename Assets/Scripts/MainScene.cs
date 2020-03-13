@@ -20,6 +20,8 @@ public class MainScene : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Screen.fullScreen = false;
+        Screen.SetResolution(1024, 768, false);
         this.initPanel.SetActive(true);
         this.mainPanel.SetActive(false);
     }

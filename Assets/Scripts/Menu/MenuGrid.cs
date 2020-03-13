@@ -10,6 +10,7 @@ public class MenuGrid : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     private GameObject _cellPrefab;
     public string Key = "";
     public Dictionary<string, MenuCell> CellDic = new Dictionary<string, MenuCell>();
+    public MenuCell SelectedCell = null;
     private void Awake()
     {
         this._cellPrefab = Resources.Load<GameObject>("UIPrefabs/Menu/MenuCell");
@@ -47,12 +48,25 @@ public class MenuGrid : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
     }
 
-    public void RefreshSelectImg(MenuCell selectCell)
+    public void SelectCell(MenuCell selectCell)
+    {
+        this.SelectedCell = selectCell;
+        this.RefreshSelectImg(selectCell);
+    }
+
+    private void RefreshSelectImg(MenuCell selectCell)
     {
         foreach (var item in this.CellDic.Values)
         {
             item.SetSelectImgActive(item == selectCell);
         }
+    }
+
+    public void Close()
+    {
+        this.SelectedCell = null;
+        this.gameObject.SetActive(false);
+        this.ResetGrid();
     }
 
     public void ResetGrid()

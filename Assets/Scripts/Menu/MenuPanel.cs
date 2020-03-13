@@ -18,13 +18,12 @@ public class MenuPanel : Singleton<MenuPanel>
     {
         _instance = this;
         this._gridPrefab = Resources.Load<GameObject>("UIPrefabs/Menu/MenuGrid");
-        this.Close();
     }
 
     private void Start()
     {
         this.FullData();
-        this.ResetPanel();
+        this.Close();
     }
 
     public void Open(Player[] selectPlayers)
@@ -35,6 +34,7 @@ public class MenuPanel : Singleton<MenuPanel>
 
     public void Close()
     {
+        this.ResetPanel();
         this.transform.localPosition = Vector3.one * 10000;
     }
 
@@ -55,12 +55,12 @@ public class MenuPanel : Singleton<MenuPanel>
         this._mainGrid.transform.localScale = Vector3.one;
         this._mainGrid.GetComponent<RectTransform>().pivot = Vector2.up;
         ArrayList mainCells = new ArrayList();
-        mainCells.Add("SetDefaultHp");
-        mainCells.Add("AddHp");
-        mainCells.Add("SubHp");
-        mainCells.Add("Die");
-        mainCells.Add("AddPurdue");
-        mainCells.Add("DeletePurdue");
+        mainCells.Add(DefineClass.SetDefaultHp);
+        mainCells.Add(DefineClass.AddHp);
+        mainCells.Add(DefineClass.SubHp);
+        mainCells.Add(DefineClass.Die);
+        mainCells.Add(DefineClass.AddPurdue);
+        mainCells.Add(DefineClass.DeletePurdue);
         this._mainGrid.FullData("MainGrid", mainCells, this.OnPointerEnterCell, this.OnPointerExitCell, this.OnPointerClickCell);
 
         // defaultGrid
@@ -107,6 +107,18 @@ public class MenuPanel : Singleton<MenuPanel>
         }
         _hundredGrid.FullData("HundredGrid", hundredCells, this.OnPointerEnterCell, this.OnPointerExitCell, this.OnPointerClickCell);
         _hundredGrid.FullUI(60, 30);
+
+        this._mainGrid.CellDic[DefineClass.SetDefaultHp].NextGrid = this._defaultHpGrid;
+        this._mainGrid.CellDic[DefineClass.AddHp].NextGrid = this._thousandGrid;
+        this._mainGrid.CellDic[DefineClass.SubHp].NextGrid = this._thousandGrid;
+        this._mainGrid.CellDic[DefineClass.AddPurdue].NextGrid = this._thousandGrid;
+        this._mainGrid.CellDic[DefineClass.DeletePurdue].NextGrid = this._thousandGrid;
+
+        foreach (var item in this._thousandGrid.CellDic.Values)
+        {
+            item.NextGrid = this._hundredGrid;
+        }
+
     }
 
     //---------------------------Event-------------------------------
@@ -121,29 +133,10 @@ public class MenuPanel : Singleton<MenuPanel>
 
         if (cell.Belong == this._mainGrid)
         {
-            this._defaultHpGrid.gameObject.SetActive(false);
-            this._thousandGrid.gameObject.SetActive(false);
-            this._hundredGrid.gameObject.SetActive(false);
-            switch (cell.Key)
-            {
-                case "SetDefaultHp":
-                    this._defaultHpGrid.gameObject.SetActive(!this._defaultHpGrid.gameObject.activeSelf);
-                    break;
-                case "AddHp":
-                    this._thousandGrid.gameObject.SetActive(!this._thousandGrid.gameObject.activeSelf);
-                    break;
-                case "SubHp":
-                    this._thousandGrid.gameObject.SetActive(!this._thousandGrid.gameObject.activeSelf);
-                    break;
-                case "AddPurdue":
-                    this._thousandGrid.gameObject.SetActive(!this._thousandGrid.gameObject.activeSelf);
-                    break;
-                case "DeletePurdue":
-                    this._thousandGrid.gameObject.SetActive(!this._thousandGrid.gameObject.activeSelf);
-                    break;
-                default:
-                    break;
-            }
+            this._defaultHpGrid.Close();
+            this._thousandGrid.Close();
+            this._hundredGrid.Close();
+            cell.SelectCell();
         }
         else if (cell.Belong == this._defaultHpGrid)
         {
@@ -151,13 +144,14 @@ public class MenuPanel : Singleton<MenuPanel>
         }
         else if (cell.Belong == this._thousandGrid)
         {
-            this._hundredGrid.gameObject.SetActive(true);
+            this._hundredGrid.Close();
+            cell.SelectCell();
         }
         else if (cell.Belong == this._hundredGrid)
         {
 
         }
-        cell.Belong.RefreshSelectImg(cell);
+        cell.Belong.SelectCell(cell);
     }
 
     public void OnPointerExitCell(MenuCell cell)
@@ -174,6 +168,14 @@ public class MenuPanel : Singleton<MenuPanel>
         else if (cell.Belong == this._defaultHpGrid)
         {
             this.OnDefaultHpCellClick(cell);
+        }
+        else if (cell.Belong == this._thousandGrid)
+        {
+            this.OnThousandCellClick(cell);
+        }
+        else if (cell.Belong == this._hundredGrid)
+        {
+            this.OnHundredCellClick(cell);
         }
     }
 
@@ -226,7 +228,6 @@ public class MenuPanel : Singleton<MenuPanel>
 
     }
 
-    //---------------------------GridMain end-------------------------------
 
     //---------------------------DefaultHp-------------------------------
 
@@ -244,6 +245,63 @@ public class MenuPanel : Singleton<MenuPanel>
         }
         this.Close();
     }
-    //---------------------------DefaultHp end-------------------------------
 
+    //---------------------------Thousand-------------------------------
+    private void OnThousandCellClick(MenuCell cell)
+    {
+        Debug.Log("setValue:" + this._thousandGrid.SelectedCell.Key.ToString());
+        int value = int.Parse(this._thousandGrid.SelectedCell.Key);
+        for (int i = 0; i < this._selectPlayers.Length; i++)
+        {
+            switch (this._mainGrid.SelectedCell.Key)
+            {
+                case DefineClass.AddHp:
+                    this._selectPlayers[i].AddHp(value);
+                    break;
+                case DefineClass.SubHp:
+                    this._selectPlayers[i].SubHp(value);
+                    break;
+                case DefineClass.AddPurdue:
+                    this._selectPlayers[i].AddPurdue(value);
+                    break;
+                case DefineClass.DeletePurdue:
+                    this._selectPlayers[i].DeletePurdue(value);
+                    break;
+                default:
+                    break;
+            }
+        }
+        this.Close();
+
+    }
+
+
+    //---------------------------Hundred-------------------------------
+    private void OnHundredCellClick(MenuCell cell)
+    {
+        Debug.Log("setValue:" + this._thousandGrid.SelectedCell.Key.ToString() + " hundred:" + this._hundredGrid.SelectedCell.Key);
+        int value = int.Parse(this._thousandGrid.SelectedCell.Key) + int.Parse(this._hundredGrid.SelectedCell.Key);
+
+        for (int i = 0; i < this._selectPlayers.Length; i++)
+        {
+            switch (this._mainGrid.SelectedCell.Key)
+            {
+                case DefineClass.AddHp:
+                    this._selectPlayers[i].AddHp(value);
+                    break;
+                case DefineClass.SubHp:
+                    this._selectPlayers[i].SubHp(value);
+                    break;
+                case DefineClass.AddPurdue:
+                    this._selectPlayers[i].AddPurdue(value);
+                    break;
+                case DefineClass.DeletePurdue:
+                    this._selectPlayers[i].DeletePurdue(value);
+                    break;
+                default:
+                    break;
+            }
+        }
+        this.Close();
+    }
 }

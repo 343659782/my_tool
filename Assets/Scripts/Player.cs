@@ -74,16 +74,29 @@ public class Player : MonoBehaviour
     public void AddHp(int value)
     {
         this.CurHp += value;
+        if (this.CurHp > this.MaxHp)
+        {
+            this.CurHp = this.MaxHp;
+        }
         this._totalSubHp -= value;
-        this.HpSlider.Value = this.CurHp / this.MaxHp * 1.0f;
-        this.HpSlider.NumberValue = this.CurHp + "/" + this.MaxHp;
+        this.RefreshCurHp();
     }
 
     public void SubHp(int value)
     {
         this.CurHp -= value;
+        if (this.CurHp < 0)
+        {
+            this.CurHp = 0;
+        }
         this._totalSubHp += value;
-        this.HpSlider.Value = this.CurHp / this.MaxHp * 1.0f;
+        this.RefreshCurHp();
+    }
+
+    public void RefreshCurHp()
+    {
+        this.HpSlider.Value = this.CurHp * 1.0f / this.MaxHp;
+        this.HpSlider.PercentValue = Mathf.Ceil(this.CurHp * 1.0f / this.MaxHp * 100.0f) + "%";
         this.HpSlider.NumberValue = this.CurHp + "/" + this.MaxHp;
     }
 

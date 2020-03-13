@@ -12,7 +12,7 @@ public class MenuCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public string Key = "";
     public MenuGrid Back = null;
     public MenuGrid Belong = null;
-    public MenuGrid Next = null;
+    public MenuGrid NextGrid = null;
     private Text _text;
     private Action<MenuCell> _enterCb;
     private Action<MenuCell> _exitCb;
@@ -44,6 +44,14 @@ public class MenuCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         this.GetComponent<LayoutElement>().preferredWidth = width;
         this.GetComponent<LayoutElement>().preferredHeight = height;
+    }
+
+    public void SelectCell()
+    {
+        if (this.NextGrid != null)
+        {
+            this.NextGrid.gameObject.SetActive(true);
+        }
     }
 
     public void SetSelectImgActive(bool active)
