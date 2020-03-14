@@ -16,6 +16,17 @@ public class InputManager : Singleton<InputManager>
 
     void Update()
     {
+        if (Input.GetMouseButtonUp(0))
+        {
+            ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out hit))
+            {
+                Debug.Log(hit.collider.gameObject.name);
+                obj = hit.collider.gameObject;
+                EventManager.DispatchEvent<GameObject>(EventManager.OnMouse0Up, obj);
+            }
+        }
+
         if (Input.GetMouseButtonUp(1))
         {
             ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -24,7 +35,6 @@ public class InputManager : Singleton<InputManager>
                 Debug.Log(hit.collider.gameObject.name);
                 obj = hit.collider.gameObject;
                 EventManager.DispatchEvent<GameObject>(EventManager.OnMouse1Up, obj);
-
             }
         }
     }

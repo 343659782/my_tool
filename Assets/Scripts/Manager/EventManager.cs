@@ -5,6 +5,7 @@ using System;
 
 public class EventManager : MonoBehaviour
 {
+    public static string OnMouse0Up = "OnMouse0Up";
     public static string OnMouse1Up = "OnMouse1Up";
 
     /// <summary>

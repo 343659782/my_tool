@@ -105,6 +105,7 @@ public class WarManager : Singleton<WarManager>
                 obj.tag = "Player";
                 Player player = obj.AddComponent<Player>();
                 player.FullData(i + 1, Camp.Our);
+                player.MaxHp = 6000;
                 this._ourPlayerDic.Add(player.Index, player);
             }
 
@@ -129,6 +130,7 @@ public class WarManager : Singleton<WarManager>
                 obj.transform.localPosition = DataUtils.GetPosByRank(theirRank.x, theirRank.y);
                 Player player = obj.AddComponent<Player>();
                 player.FullData(i + 1, Camp.Their);
+                player.MaxHp = 6000;
                 this._theirPlayerDic.Add(player.Index, player);
             }
 
@@ -154,5 +156,12 @@ public class WarManager : Singleton<WarManager>
         Player[] players = new Player[1];
         players.SetValue(player, 0);
         MenuPanel.Instance.Open(players);
+    }
+
+    public void OnPlayerMouse0Up(Player player)
+    {
+        ArrayList players = new ArrayList();
+        players.Add(player);
+        MainPanel.Instance.OpenHpInputField(players);
     }
 }

@@ -32,7 +32,8 @@ public class Player : MonoBehaviour
     {
         this.Index = index;
         this.Camp = camp;
-        EventManager.AddEvent<GameObject>(EventManager.OnMouse1Up, this.OnMouse2Up);
+        EventManager.AddEvent<GameObject>(EventManager.OnMouse0Up, this.OnMouse0Up);
+        EventManager.AddEvent<GameObject>(EventManager.OnMouse1Up, this.OnMouse1Up);
     }
 
     public void SetPet(GameObject pet)
@@ -40,7 +41,15 @@ public class Player : MonoBehaviour
         this.Pet = pet;
     }
 
-    public void OnMouse2Up(GameObject obj)
+    public void OnMouse0Up(GameObject obj)
+    {
+        if (this._collider == obj)
+        {
+            WarManager.Instance.OnPlayerMouse0Up(this);
+        }
+    }
+
+    public void OnMouse1Up(GameObject obj)
     {
         if (this._collider == obj)
         {
@@ -62,6 +71,11 @@ public class Player : MonoBehaviour
                     return null;
             }
         }
+    }
+
+    public void SetDefaultMaxHp()
+    {
+        this.SetDefaultMaxHp(this.MaxHp);
     }
 
     public void SetDefaultMaxHp(int value)

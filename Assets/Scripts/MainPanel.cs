@@ -21,6 +21,8 @@ public class MainPanel : Singleton<MainPanel>
     Button addRoundBtn;
     Text roundText;
 
+    HpInputField _hpInputField;
+
     private void Awake()
     {
         _instance = this;
@@ -46,6 +48,7 @@ public class MainPanel : Singleton<MainPanel>
         this.addRoundBtn.onClick.AddListener(this.OnAddRoundBtnClick);
         this.roundText = this.transform.Find("roundText").GetComponent<Text>();
         this.roundText.text = "第" + WarManager.Instance.CurRound + "回合";
+        this._hpInputField = this.transform.Find("hpInputField").GetComponent<HpInputField>();
     }
 
     private void Update()
@@ -98,6 +101,7 @@ public class MainPanel : Singleton<MainPanel>
         this.InstantiateIndexText(player.Index, player.gameObject);
         PlayerHpSlider slider = this.InstantiateHp(player.Index, player.gameObject);
         player.HpSlider = slider;
+        player.SetDefaultMaxHp();
 
         this.InstantiateIndexText(player.Index, player.Pet);
         this.InstantiateHp(player.Index, player.Pet);
@@ -138,5 +142,14 @@ public class MainPanel : Singleton<MainPanel>
         {
             item.Value.AddRound();
         }
+    }
+
+    //========================HpInputField======================
+    private ArrayList _selectPlayers = null;
+
+    public void OpenHpInputField(ArrayList players)
+    {
+        this._selectPlayers = players;
+        this._hpInputField.Open(this._selectPlayers);
     }
 }
