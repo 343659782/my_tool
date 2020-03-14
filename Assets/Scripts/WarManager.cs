@@ -33,27 +33,7 @@ public class WarManager : Singleton<WarManager>
     private int _curRound = 1;
     public int CurRound { get { return this._curRound; } set { _curRound = value; } }
 
-    public Player GetPlayer(int index, Camp camp)
-    {
-        switch (camp)
-        {
-            case Camp.Their:
-                if (WarManager.Instance.TheirPlayerDic.ContainsKey(index))
-                {
-                    return WarManager.Instance.TheirPlayerDic[index];
-                }
-                break;
-            case Camp.Our:
-                if (WarManager.Instance.OurPlayerDic.ContainsKey(index))
-                {
-                    return WarManager.Instance.OurPlayerDic[index];
-                }
-                break;
-            default:
-                break;
-        }
-        return null;
-    }
+    private WarState _state;
 
     private void Awake()
     {
@@ -68,11 +48,17 @@ public class WarManager : Singleton<WarManager>
         this._petPrefab = Resources.Load<GameObject>("Prefabs/PetPrefab");
     }
 
+    private void Update()
+    {
+        this.UpdateInput();
+    }
+
     public void StartGame()
     {
         this.CreateGrid();
         this.CreatePlayer();
         MainPanel.Instance.CreateWarUI();
+        this._state = WarState.Idle;
     }
 
     private void CreateGrid()
@@ -150,6 +136,24 @@ public class WarManager : Singleton<WarManager>
 
     }
 
+    //==================Input===================
+    private void UpdateInput()
+    {
+        switch (this._state)
+        {
+            case WarState.Placeholder:
+                break;
+            case WarState.Idle:
+                break;
+            case WarState.Select:
+                break;
+            case WarState.Inputing:
+                break;
+            default:
+                break;
+        }
+    }
+
     //------------------event--------------------
     public void OnPlayerMouse1Up(Player player)
     {
@@ -163,5 +167,28 @@ public class WarManager : Singleton<WarManager>
         ArrayList players = new ArrayList();
         players.Add(player);
         MainPanel.Instance.OpenHpInputField(players);
+    }
+
+    //=================属性==================
+    public Player GetPlayer(int index, Camp camp)
+    {
+        switch (camp)
+        {
+            case Camp.Their:
+                if (WarManager.Instance.TheirPlayerDic.ContainsKey(index))
+                {
+                    return WarManager.Instance.TheirPlayerDic[index];
+                }
+                break;
+            case Camp.Our:
+                if (WarManager.Instance.OurPlayerDic.ContainsKey(index))
+                {
+                    return WarManager.Instance.OurPlayerDic[index];
+                }
+                break;
+            default:
+                break;
+        }
+        return null;
     }
 }

@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     public int CurHp;
     private int _totalSubHp = 0;
     private GameObject _collider;
+    public bool Selected = false;
 
     private void Awake()
     {
@@ -45,6 +46,7 @@ public class Player : MonoBehaviour
     {
         if (this._collider == obj)
         {
+            this.Selected = true;
             WarManager.Instance.OnPlayerMouse0Up(this);
         }
     }
@@ -53,6 +55,7 @@ public class Player : MonoBehaviour
     {
         if (this._collider == obj)
         {
+            this.Selected = true;
             WarManager.Instance.OnPlayerMouse1Up(this);
         }
     }

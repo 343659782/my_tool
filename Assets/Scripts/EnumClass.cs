@@ -19,6 +19,14 @@ public enum Camp
     Our,
 }
 
+public enum WarState
+{
+    Placeholder,
+    Idle,
+    Select,
+    Inputing,
+}
+
 public class EnumClass
 {
 
@@ -33,4 +41,3 @@ public class DefineClass
     public const string AddPurdue = "AddPurdue";
     public const string DeletePurdue = "DeletePurdue";
 }
-
