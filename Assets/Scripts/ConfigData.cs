@@ -41,7 +41,7 @@ public class ConfigData
     // 一个站位的宽度 单位(米)
     public static int CellSize = 1;
 
-    public static Vector3 CameraPos = new Vector3(6f, 10.633f, -0.823f);
+    public static Vector3 CameraPos = new Vector3(6f, 9f, 0f);
     public static Quaternion CameraRot = Quaternion.Euler(58.3f, 0f, 0f);
 
     public static Vector2Int[] PetRanks =
