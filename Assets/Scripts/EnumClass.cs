@@ -27,6 +27,12 @@ public enum WarState
     Inputing,
 }
 
+public enum SelectType
+{
+    Single,
+    Multi
+}
+
 public class EnumClass
 {
 

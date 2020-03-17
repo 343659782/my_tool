@@ -7,7 +7,7 @@ public class MenuPanel : Singleton<MenuPanel>
     private GameObject _gridPrefab;
     private Dictionary<int, MenuGrid> _girdDic = new Dictionary<int, MenuGrid>();
 
-    private Player[] _selectPlayers = null;
+    private List<Player> _selectPlayers = null;
 
     private MenuGrid _mainGrid;
     private MenuGrid _defaultHpGrid;
@@ -26,7 +26,7 @@ public class MenuPanel : Singleton<MenuPanel>
         this.Close();
     }
 
-    public void Open(Player[] selectPlayers)
+    public void Open(List<Player> selectPlayers)
     {
         this._selectPlayers = selectPlayers;
         this.transform.localPosition = DataUtils.ScreenPosToUIPos(new Vector2(Input.mousePosition.x + 2, Input.mousePosition.y));
@@ -196,7 +196,7 @@ public class MenuPanel : Singleton<MenuPanel>
 
     public void AddHp(int value)
     {
-        for (int i = 0; i < this._selectPlayers.Length; i++)
+        for (int i = 0; i < this._selectPlayers.Count; i++)
         {
             this._selectPlayers[i].AddHp(value);
         }
@@ -204,7 +204,7 @@ public class MenuPanel : Singleton<MenuPanel>
 
     public void SubHp(int value)
     {
-        for (int i = 0; i < this._selectPlayers.Length; i++)
+        for (int i = 0; i < this._selectPlayers.Count; i++)
         {
             this._selectPlayers[i].SubHp(value);
         }
@@ -212,7 +212,7 @@ public class MenuPanel : Singleton<MenuPanel>
 
     public void Die()
     {
-        for (int i = 0; i < this._selectPlayers.Length; i++)
+        for (int i = 0; i < this._selectPlayers.Count; i++)
         {
             this._selectPlayers[i].Die();
         }
@@ -239,7 +239,7 @@ public class MenuPanel : Singleton<MenuPanel>
     private void SetDefaultMaxHp(int value)
     {
         Debug.Log("SetDefaultMaxHp:" + value.ToString());
-        for (int i = 0; i < this._selectPlayers.Length; i++)
+        for (int i = 0; i < this._selectPlayers.Count; i++)
         {
             this._selectPlayers[i].SetDefaultMaxHp(value);
         }
@@ -251,7 +251,7 @@ public class MenuPanel : Singleton<MenuPanel>
     {
         Debug.Log("setValue:" + this._thousandGrid.SelectedCell.Key.ToString());
         int value = int.Parse(this._thousandGrid.SelectedCell.Key);
-        for (int i = 0; i < this._selectPlayers.Length; i++)
+        for (int i = 0; i < this._selectPlayers.Count; i++)
         {
             switch (this._mainGrid.SelectedCell.Key)
             {
@@ -282,7 +282,7 @@ public class MenuPanel : Singleton<MenuPanel>
         Debug.Log("setValue:" + this._thousandGrid.SelectedCell.Key.ToString() + " hundred:" + this._hundredGrid.SelectedCell.Key);
         int value = int.Parse(this._thousandGrid.SelectedCell.Key) + int.Parse(this._hundredGrid.SelectedCell.Key);
 
-        for (int i = 0; i < this._selectPlayers.Length; i++)
+        for (int i = 0; i < this._selectPlayers.Count; i++)
         {
             switch (this._mainGrid.SelectedCell.Key)
             {

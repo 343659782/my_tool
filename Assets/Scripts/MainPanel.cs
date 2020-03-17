@@ -23,6 +23,8 @@ public class MainPanel : Singleton<MainPanel>
 
     HpInputField _hpInputField;
 
+    Text _selectType;
+
     private void Awake()
     {
         _instance = this;
@@ -49,6 +51,7 @@ public class MainPanel : Singleton<MainPanel>
         this.roundText = this.transform.Find("roundText").GetComponent<Text>();
         this.roundText.text = "第" + WarManager.Instance.CurRound + "回合";
         this._hpInputField = this.transform.Find("hpInputField").GetComponent<HpInputField>();
+        this._selectType = this.transform.Find("selectType").GetComponent<Text>();
     }
 
     private void Update()
@@ -145,11 +148,24 @@ public class MainPanel : Singleton<MainPanel>
     }
 
     //========================HpInputField======================
-    private ArrayList _selectPlayers = null;
 
-    public void OpenHpInputField(ArrayList players)
+    public void SelectPlayer(Player player)
     {
-        this._selectPlayers = players;
-        this._hpInputField.Open(this._selectPlayers);
+        this._hpInputField.SelectPlayer(player);
+    }
+
+    public void SetSelectType(SelectType type)
+    {
+        switch (type)
+        {
+            case SelectType.Single:
+                this._selectType.text = "单选";
+                break;
+            case SelectType.Multi:
+                this._selectType.text = "多选";
+                break;
+            default:
+                break;
+        }
     }
 }

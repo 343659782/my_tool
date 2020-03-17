@@ -33,7 +33,7 @@ public class WarManager : Singleton<WarManager>
     private int _curRound = 1;
     public int CurRound { get { return this._curRound; } set { _curRound = value; } }
 
-    private WarState _state;
+    private SelectType _selectType;
 
     private void Awake()
     {
@@ -58,7 +58,7 @@ public class WarManager : Singleton<WarManager>
         this.CreateGrid();
         this.CreatePlayer();
         MainPanel.Instance.CreateWarUI();
-        this._state = WarState.Idle;
+        this._selectType = SelectType.Single;
     }
 
     private void CreateGrid()
@@ -139,38 +139,46 @@ public class WarManager : Singleton<WarManager>
     //==================Input===================
     private void UpdateInput()
     {
-        switch (this._state)
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
-            case WarState.Placeholder:
-                break;
-            case WarState.Idle:
-                break;
-            case WarState.Select:
-                break;
-            case WarState.Inputing:
-                break;
-            default:
-                break;
+            switch (this._selectType)
+            {
+                case SelectType.Single:
+                    this.SelectType = SelectType.Multi;
+                    break;
+                case SelectType.Multi:
+                    this.SelectType = SelectType.Single;
+                    break;
+                default:
+                    break;
+            }
+
+        }
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            this.SelectType = SelectType.Multi;
+        }
+        else if (Input.GetKeyUp(KeyCode.LeftControl))
+        {
+            this.SelectType = SelectType.Single;
         }
     }
 
     //------------------event--------------------
+    public void OnPlayerMouse0Up(Player player)
+    {
+        MainPanel.Instance.SelectPlayer(player);
+    }
+
     public void OnPlayerMouse1Up(Player player)
     {
-        Player[] players = new Player[1];
-        players.SetValue(player, 0);
+        List<Player> players = new List<Player>();
+        players.Add(player);
         MenuPanel.Instance.Open(players);
     }
 
-    public void OnPlayerMouse0Up(Player player)
-    {
-        ArrayList players = new ArrayList();
-        players.Add(player);
-        MainPanel.Instance.OpenHpInputField(players);
-    }
-
     //=================属性==================
-    public Player GetPlayer(int index, Camp camp)
+    public Player GetPlayer(int index, Camp camp = Camp.Their)
     {
         switch (camp)
         {
@@ -190,5 +198,19 @@ public class WarManager : Singleton<WarManager>
                 break;
         }
         return null;
+    }
+
+    public SelectType SelectType
+    {
+        get
+        {
+            return this._selectType;
+        }
+
+        set
+        {
+            this._selectType = value;
+            MainPanel.Instance.SetSelectType(this._selectType);
+        }
     }
 }

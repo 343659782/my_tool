@@ -14,10 +14,20 @@ public class Player : MonoBehaviour
     private int _totalSubHp = 0;
     private GameObject _collider;
     public bool Selected = false;
+    private MeshRenderer _renderer;
+    private Material _idleMat;
+    private Material _selectMat;
 
     private void Awake()
     {
         this._collider = this.transform.Find("Collider").gameObject;
+        this._renderer = this._collider.GetComponent<MeshRenderer>();
+    }
+
+    private void Start()
+    {
+        this._idleMat = this._renderer.material;
+        this._selectMat = Resources.Load<Material>("ColorM/playerSelected");
     }
 
     private void Update()
@@ -37,6 +47,23 @@ public class Player : MonoBehaviour
         EventManager.AddEvent<GameObject>(EventManager.OnMouse1Up, this.OnMouse1Up);
     }
 
+    public void Select()
+    {
+        this.Selected = true;
+        this._renderer.material = this._selectMat;
+    }
+
+    public void UnSelect()
+    {
+        if (!this.Selected)
+        {
+            return;
+        }
+
+        this.Selected = false;
+        this._renderer.material = this._idleMat;
+    }
+
     public void SetPet(GameObject pet)
     {
         this.Pet = pet;
@@ -46,7 +73,7 @@ public class Player : MonoBehaviour
     {
         if (this._collider == obj)
         {
-            this.Selected = true;
+            this.Select();
             WarManager.Instance.OnPlayerMouse0Up(this);
         }
     }
@@ -55,7 +82,7 @@ public class Player : MonoBehaviour
     {
         if (this._collider == obj)
         {
-            this.Selected = true;
+            this.Select();
             WarManager.Instance.OnPlayerMouse1Up(this);
         }
     }

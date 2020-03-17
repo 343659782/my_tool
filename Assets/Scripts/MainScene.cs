@@ -15,6 +15,7 @@ public class MainScene : MonoBehaviour
         Camera.main.transform.position = ConfigData.CameraPos;
         Camera.main.transform.rotation = ConfigData.CameraRot;
         InputManager.Instance.Init();
+        PrintSreenManager.Instance.Init();
     }
 
     // Start is called before the first frame update
