@@ -16,6 +16,7 @@ public class HeadIcon : MonoBehaviour
         this._petCountText = this.transform.Find("petText").GetComponent<Text>();
         this.transform.Find("petAddBtn").GetComponent<Button>().onClick.AddListener(this.OnAddBtnClick);
         this.transform.Find("petSubBtn").GetComponent<Button>().onClick.AddListener(this.OnSubBtnClick);
+        this.transform.Find("babyBtn").GetComponent<Button>().onClick.AddListener(this.OnBabyBtnClick);
     }
 
     private void Start()
@@ -42,5 +43,10 @@ public class HeadIcon : MonoBehaviour
         this._petValue--;
         this._petValue = Mathf.Max(this._petValue,0);
         this._petCountText.text = this._petValue + "/" + ConfigData.MaxPetCount;
+    }
+
+    private void OnBabyBtnClick()
+    {
+        this.transform.Find("babyBtn").gameObject.SetActive(false);
     }
 }

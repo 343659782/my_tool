@@ -98,7 +98,7 @@ public class MainPanel : Singleton<MainPanel>
             this.InitPlayerUI(WarManager.Instance.GetPlayer(i, Camp.Our));
             this.InitPlayerUI(WarManager.Instance.GetPlayer(i, Camp.Their));
 
-            this.CreateHeadUI(WarManager.Instance.GetPlayer(i, Camp.Our));
+            //this.CreateHeadUI(WarManager.Instance.GetPlayer(i, Camp.Our));
             this.CreateHeadUI(WarManager.Instance.GetPlayer(i, Camp.Their));
         }
     }
