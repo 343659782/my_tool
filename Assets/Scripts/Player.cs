@@ -9,7 +9,10 @@ public class Player : MonoBehaviour
     public int Index;
     public Camp Camp;
     public GameObject Pet;
+    public GameObject PetIndexGo;
+    public PlayerHpSlider PetHpSlider;
     public PlayerHpSlider HpSlider;
+    public GameObject IndexTextGo;
     public int MaxHp;
     public int CurHp;
     private int _totalSubHp = 0;
@@ -174,5 +177,20 @@ public class Player : MonoBehaviour
             this.AddHp(this._singlePurdueHp);
             this._purdueSurplusRound--;
         }
+    }
+
+    public void RefreshUIPos()
+    {
+        Vector3 pointPos = this.transform.Find("hpPoint").position;
+        this.HpSlider.transform.localPosition = DataUtils.WorldPosToUIPos(pointPos);
+
+        pointPos = this.transform.Find("IndexTextPoint").position;
+        this.IndexTextGo.transform.localPosition = DataUtils.WorldPosToUIPos(pointPos);
+
+        pointPos = this.Pet.transform.Find("hpPoint").position;
+        this.PetHpSlider.transform.localPosition = DataUtils.WorldPosToUIPos(pointPos);
+
+        pointPos = this.Pet.transform.Find("IndexTextPoint").position;
+        this.PetIndexGo.transform.localPosition = DataUtils.WorldPosToUIPos(pointPos);
     }
 }

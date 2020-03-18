@@ -44,6 +44,9 @@ public class ConfigData
     public static Vector3 CameraPos = new Vector3(6f, 9f, 0f);
     public static Quaternion CameraRot = Quaternion.Euler(58.3f, 0f, 0f);
 
+    public static Vector3 CameraTheirPos = new Vector3(4f, 7f, 3.8f);
+    public static Quaternion CameraTheirRot = Quaternion.Euler(58f, 0f, 0f);
+
     public static Vector2Int[] PetRanks =
     {
         new Vector2Int(7, 4),
@@ -60,4 +63,5 @@ public class ConfigData
     public static int[] DefaultHp = { 5200, 6300, 7500, 8000 };
 
     public static int MaxPetCount = 8;
+    public static int MaxPrepCount = 20;
 }

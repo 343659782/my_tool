@@ -67,6 +67,11 @@ public class MainPanel : Singleton<MainPanel>
         this.RefreshGeinForce();
     }
 
+    public void RefreshUIPos()
+    {
+
+    }
+
     private void RefreshGeinForce()
     {
         Debug.Log("RefreshGeinForce");
@@ -105,22 +110,23 @@ public class MainPanel : Singleton<MainPanel>
 
     private void InitPlayerUI(Player player)
     {
-        this.InstantiateIndexText(player.Index, player.gameObject);
+        player.IndexTextGo = this.InstantiateIndexText(player.Index, player.gameObject);
         PlayerHpSlider slider = this.InstantiateHp(player.Index, player.gameObject);
         player.HpSlider = slider;
         player.SetDefaultMaxHp();
 
-        this.InstantiateIndexText(player.Index, player.Pet);
-        this.InstantiateHp(player.Index, player.Pet);
+        player.PetIndexGo = this.InstantiateIndexText(player.Index, player.Pet);
+        player.PetHpSlider = this.InstantiateHp(player.Index, player.Pet);
     }
 
-    private void InstantiateIndexText(int index, GameObject go)
+    private GameObject InstantiateIndexText(int index, GameObject go)
     {
         GameObject obj = GameObject.Instantiate(this.playerIndexPrefab);
         obj.transform.SetParent(this.indexTextParent.transform);
         obj.GetComponent<Text>().text = index.ToString();
         Vector3 pointPos = go.transform.Find("IndexTextPoint").position;
         obj.transform.localPosition = DataUtils.WorldPosToUIPos(pointPos);
+        return obj;
     }
 
     private PlayerHpSlider InstantiateHp(int index, GameObject go)

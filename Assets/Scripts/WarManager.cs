@@ -162,6 +162,32 @@ public class WarManager : Singleton<WarManager>
         {
             this.SelectType = SelectType.Single;
         }
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            Camera.main.transform.position = ConfigData.CameraPos;
+            Camera.main.transform.rotation = ConfigData.CameraRot;
+            foreach (var item in this._theirPlayerDic.Values)
+            {
+                item.RefreshUIPos();
+            }
+            foreach (var item in this._ourPlayerDic.Values)
+            {
+                item.RefreshUIPos();
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.F2))
+        {
+            Camera.main.transform.position = ConfigData.CameraTheirPos;
+            Camera.main.transform.rotation = ConfigData.CameraTheirRot;
+            foreach (var item in this._theirPlayerDic.Values)
+            {
+                item.RefreshUIPos();
+            }
+            foreach (var item in this._ourPlayerDic.Values)
+            {
+                item.RefreshUIPos();
+            }
+        }
     }
 
     //------------------event--------------------
