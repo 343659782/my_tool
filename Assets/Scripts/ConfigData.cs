@@ -59,4 +59,5 @@ public class ConfigData
     // 位置默认血量
     public static int[] DefaultHp = { 5200, 6300, 7500, 8000 };
 
+    public static int MaxPetCount = 8;
 }

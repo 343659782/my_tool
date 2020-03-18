@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    //1-5
     public int Index;
     public Camp Camp;
     public GameObject Pet;

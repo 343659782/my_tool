@@ -31,10 +31,11 @@ public class MainPanel : Singleton<MainPanel>
         this.playerIndexPrefab = Resources.Load<GameObject>("UIPrefabs/PlayerIndexPrefab");
         this.hpSliderPrefab = Resources.Load<GameObject>("UIPrefabs/HpSliderPrefab");
 
-        this.initUi();
+        this.InitUI();
+        this.InitHeadUI();
     }
 
-    void initUi()
+    void InitUI()
     {
         this._canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
         this.reinforceValue = this.transform.Find("reinforceValue").GetComponent<Text>();
@@ -96,6 +97,9 @@ public class MainPanel : Singleton<MainPanel>
         {
             this.InitPlayerUI(WarManager.Instance.GetPlayer(i, Camp.Our));
             this.InitPlayerUI(WarManager.Instance.GetPlayer(i, Camp.Their));
+
+            this.CreateHeadUI(WarManager.Instance.GetPlayer(i, Camp.Our));
+            this.CreateHeadUI(WarManager.Instance.GetPlayer(i, Camp.Their));
         }
     }
 
@@ -167,5 +171,36 @@ public class MainPanel : Singleton<MainPanel>
             default:
                 break;
         }
+    }
+
+    //=========================HeadTab===========================
+    private Transform _theirHeadLayout;
+    private Transform _ourHeadLayout;
+    private GameObject _headTabPrefab;
+
+    private void InitHeadUI()
+    {
+        this._theirHeadLayout = this.transform.Find("theirHead");
+        this._ourHeadLayout = this.transform.Find("ourHead");
+        this._headTabPrefab = Resources.Load<GameObject>("UIPrefabs/Head/headPrefab");
+    }
+
+    private void CreateHeadUI(Player player)
+    {
+        GameObject obj = GameObject.Instantiate(this._headTabPrefab);
+        HeadIcon script = obj.GetComponent<HeadIcon>();
+        script.Init(player.Index);
+        switch (player.Camp)
+        {
+            case Camp.Their:
+                obj.transform.SetParent(this._theirHeadLayout);
+                break;
+            case Camp.Our:
+                obj.transform.SetParent(this._ourHeadLayout);
+                break;
+        }
+        obj.transform.localPosition = Vector3.zero;
+        obj.transform.localScale = Vector3.one;
+        obj.transform.SetSiblingIndex(player.Index - 1);
     }
 }

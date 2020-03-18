@@ -117,7 +117,9 @@ public class HpInputField : MonoBehaviour
     public void Open(List<Player> players)
     {
         this._opened = true;
+        //Vector3 uiPos = DataUtils.WorldPosToUIPos(players[0].transform.Find("IndexTextPoint").position);
         this.transform.localPosition = this._originPos;
+        //this.transform.localPosition = uiPos;
         this._players = players;
         this._hpInputField.text = "";
         this._hpInputField.ActivateInputField();
