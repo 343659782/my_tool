@@ -11,6 +11,7 @@ public class HeadIcon : MonoBehaviour
     private int _prepCount;
     private int _headIndex = 0;
     private Text _prepCountText;
+    private GameObject _babyFlyText;
 
     private void Awake()
     {
@@ -22,6 +23,8 @@ public class HeadIcon : MonoBehaviour
         this.transform.Find("prepAddBtn").GetComponent<Button>().onClick.AddListener(this.OnAddPrepBtnClick);
         this.transform.Find("prepSubBtn").GetComponent<Button>().onClick.AddListener(this.OnSubPrepBtnClick);
         this.transform.Find("babyBtn").GetComponent<Button>().onClick.AddListener(this.OnBabyBtnClick);
+        this._babyFlyText = this.transform.Find("babyText").gameObject;
+        this._babyFlyText.SetActive(false);
     }
 
     public void Init(int index)
@@ -65,5 +68,6 @@ public class HeadIcon : MonoBehaviour
     private void OnBabyBtnClick()
     {
         this.transform.Find("babyBtn").gameObject.SetActive(false);
+        this._babyFlyText.SetActive(true);
     }
 }

@@ -22,7 +22,7 @@ public class MainScene : MonoBehaviour
     void Start()
     {
         Screen.fullScreen = false;
-        Screen.SetResolution(1024, 768, false);
+        Screen.SetResolution(800, 600, false);
         this.initPanel.SetActive(true);
         this.mainPanel.SetActive(false);
     }
