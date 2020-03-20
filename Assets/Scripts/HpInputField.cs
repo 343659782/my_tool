@@ -125,7 +125,7 @@ public class HpInputField : MonoBehaviour
         this._hpInputField.ActivateInputField();
     }
 
-    private void Close()
+    public void Close()
     {
         this._opened = false;
         this._hpInputField.text = "";

@@ -179,6 +179,11 @@ public class MainPanel : Singleton<MainPanel>
         }
     }
 
+    public void CloseHpInputField()
+    {
+        this._hpInputField.Close();
+    }
+
     //=========================HeadTab===========================
     private Transform _theirHeadLayout;
     private Transform _ourHeadLayout;

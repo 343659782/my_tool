@@ -193,14 +193,53 @@ public class WarManager : Singleton<WarManager>
     //------------------event--------------------
     public void OnPlayerMouse0Up(Player player)
     {
+        WarManager.Instance.ResetMouse1Up();
         MainPanel.Instance.SelectPlayer(player);
+    }
+
+    public void ResetMouse0Up()
+    {
+        switch (_selectType)
+        {
+            case SelectType.Single:
+                foreach (var item in this._theirPlayerDic.Values)
+                {
+                    item.UnSelect();
+                }
+                MainPanel.Instance.CloseHpInputField();
+                break;
+            case SelectType.Multi:
+                break;
+            default:
+                break;
+        }
     }
 
     public void OnPlayerMouse1Up(Player player)
     {
+        MainPanel.Instance.CloseHpInputField();
         List<Player> players = new List<Player>();
         players.Add(player);
         MenuPanel.Instance.Open(players);
+    }
+
+    public void ResetMouse1Up()
+    {
+        switch (_selectType)
+        {
+            case SelectType.Single:
+                break;
+            case SelectType.Multi:
+                break;
+            default:
+                break;
+        }
+        foreach (var item in this._theirPlayerDic.Values)
+        {
+            item.UnSelect();
+        }
+        MenuPanel.Instance.Close();
+        MainPanel.Instance.CloseHpInputField();
     }
 
     //=================属性==================

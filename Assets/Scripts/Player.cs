@@ -80,6 +80,13 @@ public class Player : MonoBehaviour
             this.Select();
             WarManager.Instance.OnPlayerMouse0Up(this);
         }
+        else
+        {
+            if (WarManager.Instance.SelectType == SelectType.Single)
+            {
+                this.UnSelect();
+            }
+        }
     }
 
     public void OnMouse1Up(GameObject obj)
@@ -88,6 +95,13 @@ public class Player : MonoBehaviour
         {
             this.Select();
             WarManager.Instance.OnPlayerMouse1Up(this);
+        }
+        else
+        {
+            if (WarManager.Instance.SelectType == SelectType.Single)
+            {
+                this.UnSelect();
+            }
         }
     }
 
