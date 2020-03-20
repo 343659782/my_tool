@@ -84,6 +84,7 @@ public class HpInputField : MonoBehaviour
 
     private void OnKeyDown(int index)
     {
+        WarManager.Instance.ResetMouse1Up();
         Player player = this._warMg.GetPlayer(index);
         this.SelectPlayer(player);
     }
