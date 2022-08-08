@@ -50,7 +50,6 @@ public class WarManager : Singleton<WarManager>
 
     private void Update()
     {
-        this.UpdateInput();
     }
 
     public void StartGame()
@@ -135,62 +134,7 @@ public class WarManager : Singleton<WarManager>
     {
 
     }
-
-    //==================Input===================
-    private void UpdateInput()
-    {
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            switch (this._selectType)
-            {
-                case SelectType.Single:
-                    this.SelectType = SelectType.Multi;
-                    break;
-                case SelectType.Multi:
-                    this.SelectType = SelectType.Single;
-                    break;
-                default:
-                    break;
-            }
-
-        }
-        if (Input.GetKeyDown(KeyCode.LeftControl))
-        {
-            this.SelectType = SelectType.Multi;
-        }
-        else if (Input.GetKeyUp(KeyCode.LeftControl))
-        {
-            this.SelectType = SelectType.Single;
-        }
-        if (Input.GetKeyDown(KeyCode.F1))
-        {
-            Camera.main.transform.position = ConfigData.CameraPos;
-            Camera.main.transform.rotation = ConfigData.CameraRot;
-            foreach (var item in this._theirPlayerDic.Values)
-            {
-                item.RefreshUIPos();
-            }
-            foreach (var item in this._ourPlayerDic.Values)
-            {
-                item.RefreshUIPos();
-            }
-        }
-        else if (Input.GetKeyDown(KeyCode.F2))
-        {
-            Camera.main.transform.position = ConfigData.CameraTheirPos;
-            Camera.main.transform.rotation = ConfigData.CameraTheirRot;
-            foreach (var item in this._theirPlayerDic.Values)
-            {
-                item.RefreshUIPos();
-            }
-            foreach (var item in this._ourPlayerDic.Values)
-            {
-                item.RefreshUIPos();
-            }
-        }
-    }
-
-    //------------------event--------------------
+    
     public void OnPlayerMouse0Up(Player player)
     {
         WarManager.Instance.ResetMouse1Up();

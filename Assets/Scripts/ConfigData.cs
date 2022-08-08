@@ -64,4 +64,32 @@ public class ConfigData
 
     public static int MaxPetCount = 8;
     public static int MaxPrepCount = 20;
+    
+    /**
+     * 默认快捷键
+     */
+    public static Dictionary<OperateEnum, string> DefaultShortcut = new Dictionary<OperateEnum, string>()
+    {
+        {OperateEnum.Undo, "LeftControl_Z"},
+        {OperateEnum.PetDie_1, "Alpha1"},
+        {OperateEnum.PetDie_2, "Alpha2"},
+        {OperateEnum.PetDie_3, "Alpha3"},
+        {OperateEnum.PetDie_4, "Alpha4"},
+        {OperateEnum.PetDie_5, "Alpha5"},
+        {OperateEnum.UsePrep_1, "Keypad1"},
+        {OperateEnum.UsePrep_2, "Keypad2"},
+        {OperateEnum.UsePrep_3, "Keypad3"},
+        {OperateEnum.UsePrep_4, "Keypad4"},
+        {OperateEnum.UsePrep_5, "Keypad5"},
+        {OperateEnum.GuangHui_1, ""},
+        {OperateEnum.GuangHui_2, ""},
+        {OperateEnum.GuangHui_3, ""},
+        {OperateEnum.GuangHui_4, ""},
+        {OperateEnum.GuangHui_5, ""},        
+        {OperateEnum.PoJia_1, ""},
+        {OperateEnum.PoJia_2, ""},
+        {OperateEnum.PoJia_3, ""},
+        {OperateEnum.PoJia_4, ""},
+        {OperateEnum.PoJia_5, ""},
+    };
 }

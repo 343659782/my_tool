@@ -47,3 +47,30 @@ public class DefineClass
     public const string AddPurdue = "AddPurdue";
     public const string DeletePurdue = "DeletePurdue";
 }
+
+public enum OperateEnum{
+    Undo,
+    PetDie_1,
+    PetDie_2,
+    PetDie_3,
+    PetDie_4,
+    PetDie_5,
+    
+    UsePrep_1,
+    UsePrep_2,
+    UsePrep_3,
+    UsePrep_4,
+    UsePrep_5,
+    
+    GuangHui_1,
+    GuangHui_2,
+    GuangHui_3,
+    GuangHui_4,
+    GuangHui_5,
+    
+    PoJia_1,
+    PoJia_2,
+    PoJia_3,
+    PoJia_4,
+    PoJia_5,
+}
